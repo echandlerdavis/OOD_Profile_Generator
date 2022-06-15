@@ -1,4 +1,13 @@
 {
+  "name": "buildteam",
+  "version": "1.0.0",
+  "description": "creates employee profiles",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "watch": "nodemon index",
+    "test": "jest"
+  },
   "dependencies": {
     "inquirer": "^8.2.4",
     "jest": "^28.1.1"
