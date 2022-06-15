@@ -10,7 +10,7 @@
 
 OOD_Profile_Generator is organized into the following files:
 
-![Files]()
+![Files](./assets/files.png)
 
 **Installation**
 
@@ -28,9 +28,7 @@ OOD_Profile_Generator is organized into the following files:
 
 **What the application looks like**
 
-![gif of app](./assets/READMEgenerator.gif)
-
-[Link to Video of Application]https://watch.screencastify.com/v/bsiFSyTVsaFmi2EWoxdR
+[Link to Video of Application]https://watch.screencastify.com/v/knC6oZAktoQIFNcv5E5O
 
 
 **Link to deployed version of Chandler's Portfolio**
