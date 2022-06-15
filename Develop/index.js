@@ -2,7 +2,9 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 const Manager = require("./lib/manager");
-const render = require('./lib/renderhtml')
+const Intern = require('./lib/intern');
+const Engineer = require('./lib/engineer');
+const render = require('./lib/renderhtml');
 
 const questions = [
     {
@@ -40,7 +42,16 @@ const createTeam = () => {
                 case "Manager": 
                     addManager(userChoice)
                     break;
+                case "Intern":
+                    addIntern(userChoice)
+                    break;
+                case "Engineer":
+                    addEngineer(userChoice)
+                    break;
             }
+        })
+        .catch(err => {
+            console.log(err);
         })
  };
 
@@ -65,39 +76,74 @@ const createTeam = () => {
         if(answers.add === "Yes"){
             createTeam()
         }else{
-            return render(team);
+            writeHtml(render(team));
         }
     })
-    .then((html) =>{
-        return writeHtml(html);
-    });
+
+    .catch(err => {
+        console.log(err);
+    })
  };
 
-//  function addIntern(data){
-//     inquirer.prompt([{
-//         type: "input",
-//         name: "schoolName",
-//         message: "What is the name of their school?",
-//     },
-//     {
-//         type:"list",
-//         name:"add",
-//         message: "Would you like to add another team member?",
-//         choices: ["Yes", "No"]
-//     }
-// ])
-//     .then((answers) => {
-//         const intern = new Intern(
-//             data.name, data.id, data.email, answers.schoolName
-//         );
-//         team.push(intern);
-//         if(answers.add === "Yes"){
-//             createTeam()
-//         }else{
-//             writeHtml();
-//         }
-//     })
-//  };
+ function addIntern(data){
+    inquirer.prompt([{
+        type: "input",
+        name: "schoolName",
+        message: "What is the name of their school?",
+    },
+    {
+        type:"list",
+        name:"add",
+        message: "Would you like to add another team member?",
+        choices: ["Yes", "No"]
+    }
+])
+    .then((answers) => {
+        const intern = new Intern(
+            data.name, data.id, data.email, answers.schoolName
+        );
+        team.push(intern);
+        if(answers.add === "Yes"){
+            createTeam()
+        }else{
+            writeHtml(render(team));
+        }
+    })
+    .catch(err => {
+        console.log(err);
+    })
+ };
+
+ function addEngineer(data){
+    inquirer.prompt([{
+        type: "input",
+        name: "gitHub",
+        message: "What is their github username?",
+    },
+    {
+        type:"list",
+        name:"add",
+        message: "Would you like to add another team member?",
+        choices: ["Yes", "No"]
+    }
+])
+    .then((answers) => {
+        const engineer = new Engineer(
+            data.name, data.id, data.email, answers.gitHub
+        );
+        team.push(engineer);
+        if(answers.add === "Yes"){
+            createTeam()
+        }else{
+            writeHtml(render(team))
+        }
+    })
+
+    .catch(err => {
+        console.log(err);
+    })
+    
+ };
 
 const writeHtml = data => {
     fs.writeFile('./dist/team.html', data, err => {
@@ -110,17 +156,15 @@ const writeHtml = data => {
         }
     );
 };
- //create functions for each type of employee
 
 
  createTeam();
 
 
 //TODO:
-// - ask the correct questions based on the answers
-// - ask the questions again when they want to add another teammember
-// - push the teammembers to an array?
-// - take the info from the array and put into the html file. 
+
+
+
 // - make tests and make sure they work
 // - Fix the css stuff so it looks nice
 // - Readme and video
