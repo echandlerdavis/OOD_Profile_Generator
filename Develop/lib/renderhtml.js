@@ -1,11 +1,10 @@
 
 const path = require("path");
 const fs = require("fs");
-const Engineer = require("./engineer");
 
 const generateTeam = team => {
     const generateManager = manager => {
-        return ` <card class="card">
+        return ` <div class="card">
         <section id="card-header">
             <h2>${manager.name}</h2>
             <h3>Manager</h3>
@@ -15,11 +14,11 @@ const generateTeam = team => {
             <p>Email: <a href= "mailto:${manager.email}">${manager.email}</a></p>
             <p>Office Number: ${manager.officeNumber}</p>
         </section>
-    </card>`
+    </div>`
     };
 
 const generateIntern = intern => {
-        return ` <card class="card">
+        return ` <div class="card">
         <section id="card-header">
             <h2>${intern.name}</h2>
             <h3>Intern</h3>
@@ -27,13 +26,14 @@ const generateIntern = intern => {
         <section id="card-text">
             <p>ID: ${intern.id}</p>
             <p>Email: <a href= "mailto:${intern.email}">${intern.email}</a></p>
-            <p>School Name: ${intern.schoolName}</p>
+            <p>School Name: ${intern.school}</p>
         </section>
-    </card>`
+    </div>`
     };
 
 const generateEngineer = engineer => {
-        return ` <card class="card">
+        console.log(engineer.username);
+        return `<div class="card">
         <section id="card-header">
             <h2>${engineer.name}</h2>
             <h3>Engineer</h3>
@@ -41,9 +41,9 @@ const generateEngineer = engineer => {
         <section id="card-text">
             <p>ID: ${engineer.id}</p>
             <p>Email: <a href= "mailto:${engineer.email}">${engineer.email}</a></p>
-            <p>GitHub: <a href="https://github.com/${engineer.gitHub}" target="_blank">${engineer.gitHub}</a></p>
+            <p>GitHub: <a href="https://github.com/${engineer.username}" target="_blank">${engineer.username}</a></p>
         </section>
-    </card>`
+    </div>`
     };
 
  const html = [];
@@ -61,7 +61,7 @@ html.push(team
     .map(intern => generateIntern(intern))
   );
 
-  return html.join('')
+  return html.join("")
 }
 
 
@@ -79,7 +79,9 @@ module.exports = team => {
         <header>
             <h1>My Team</h1>
         </header>
+        <main>
         ${generateTeam(team)}
+        </main>
     </body>
     </html>`
 }

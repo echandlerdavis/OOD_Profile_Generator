@@ -88,7 +88,7 @@ const createTeam = () => {
  function addIntern(data){
     inquirer.prompt([{
         type: "input",
-        name: "schoolName",
+        name: "school",
         message: "What is the name of their school?",
     },
     {
@@ -100,7 +100,7 @@ const createTeam = () => {
 ])
     .then((answers) => {
         const intern = new Intern(
-            data.name, data.id, data.email, answers.schoolName
+            data.name, data.id, data.email, answers.school
         );
         team.push(intern);
         if(answers.add === "Yes"){
@@ -117,7 +117,7 @@ const createTeam = () => {
  function addEngineer(data){
     inquirer.prompt([{
         type: "input",
-        name: "gitHub",
+        name: "username",
         message: "What is their github username?",
     },
     {
@@ -128,14 +128,15 @@ const createTeam = () => {
     }
 ])
     .then((answers) => {
+        console.log (answers.username)
         const engineer = new Engineer(
-            data.name, data.id, data.email, answers.gitHub
+            data.name, data.id, data.email, answers.username
         );
         team.push(engineer);
         if(answers.add === "Yes"){
             createTeam()
         }else{
-            writeHtml(render(team))
+            writeHtml(render(team));
         }
     })
 
